@@ -1,0 +1,64 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+
+if [[ -z "$DEPLOY_BRANCH" ]]; then
+  DEPLOY_BRANCH="gh-pages"
+  echo "No deploy branch specified. Using default $DEPLOY_BRANCH."
+else
+  echo "Using provided deploy branch $DEPLOY_BRANCH."
+fi
+
+if [[ -z "$GITHUB_REF" ]]; then
+  echo "No ref found. Please provide one by setting GITHUB_REF."
+  echo "This is needed to avoid cyclical deploys."
+  exit 1
+elif [[ "$GITHUB_REF" == "refs/heads/$DEPLOY_BRANCH" ]]; then
+  echo "This event was triggered by the same deploy branch used by this action: $GITHUB_REF."
+  echo "Nothing to deploy."
+  exit 0
+fi
+
+if [[ -z "$GITHUB_TOKEN" ]]; then
+  echo "No GitHub token found. Please provide one by setting GITHUB_TOKEN."
+  exit 1
+fi
+
+if [[ -z "$GITHUB_REPOSITORY" ]]; then
+  echo "No GitHub repository name found. Please provide one by setting GITHUB_REPOSITORY."
+  exit 1
+else
+  REPO_URL="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+fi
+
+
+if [ -e "yarn.lock" ]; then
+  echo "Installing dependencies using Yarn."
+  yarn install
+else
+  echo "Installing dependencies using NPM."
+  npm install
+fi
+
+
+echo "Ready to build your Gatsby site!"
+echo "Building with command: gatsby build $*"
+gatsby build "$*"
+
+
+echo "Deploying!"
+cd ./public
+git init
+git config user.name "$GITHUB_ACTOR" && git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+git add . && git commit -m "deployed via Gatsby Publish Action 🎩 for ${GITHUB_SHA}"
+git push -f $REPO_URL master:$DEPLOY_BRANCH
+
+
+echo "Cleaning up."
+cd ..
+rm -rf ./public
+
+
+echo "Done."
