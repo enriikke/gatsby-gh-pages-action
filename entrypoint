@@ -23,8 +23,8 @@ else
   echo "Source ref: $GITHUB_REF."
 fi
 
-if [[ -z "$GITHUB_ACCESS_TOKEN" ]]; then
-  echo "No GitHub access token found. Please provide one by setting GITHUB_ACCESS_TOKEN."
+if [[ -z "$ACCESS_TOKEN" ]]; then
+  echo "No GitHub access token found. Please provide one by setting ACCESS_TOKEN."
   exit 1
 fi
 
@@ -32,7 +32,7 @@ if [[ -z "$GITHUB_REPOSITORY" ]]; then
   echo "No GitHub repository name found. Please provide one by setting GITHUB_REPOSITORY."
   exit 1
 else
-  REPO_URL="https://$GITHUB_ACCESS_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+  REPO_URL="https://$ACCESS_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 fi
 
 
