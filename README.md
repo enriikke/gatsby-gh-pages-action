@@ -28,14 +28,14 @@ workflow "Gatsby to GitHub Pages" {
   resolves = ["Publish"]
 }
 
-action "On Master" {
+action "On Dev" {
   uses = "actions/bin/filter@master"
-  args = "branch master"
+  args = "branch dev"
 }
 
 action "Publish" {
-  uses = "enriikke/gatsby-gh-pages-action@master"
-  needs = ["On Master"]
+  uses = "enriikke/gatsby-gh-pages-action@@1.0.1"
+  needs = ["On Dev"]
   secrets = ["ACCESS_TOKEN"]
 }
 ```
@@ -45,9 +45,11 @@ action "Publish" {
 This Action is fairly simple but it does provide you with a couple of
 configuration options:
 
-- **DEPLOY_BRANCH**: The repository branch used for your GitHub Page and where
-  the Gatsby build will be pushed. Defined as an [environment variable](https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#environment-variables).
-  Defaults to `gh-pages`.
+- **DEPLOY_BRANCH**: The branch expected by GitHub to have the static files
+  needed for your site. For org and user pages it should always be `master`.
+  This is where the output of `gatsby build` will be pushed to. Defined as an
+  [environment variable](https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#environment-variables).
+  Defaults to `master`.
 
 - **ARGS**: Additional arguments that get passed to `gatsby build`. See the
   [Gatsby documentation](https://www.gatsbyjs.org/docs/gatsby-cli/#build) for a
@@ -57,8 +59,8 @@ configuration options:
 ### Org or User Pages
 
 Create a repository with the format `<YOUR/ORG USERNAME>.github.io`, push your
-Gatsby source code to the `master` branch,  and add this GitHub Action to your
-workflow! 🚀😃
+Gatsby source code to a branch different than your `DEPLOY_BRANCH` and add this
+GitHub Action to your workflow! 🚀😃
 
 ### Repository Pages
 

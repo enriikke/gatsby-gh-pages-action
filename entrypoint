@@ -5,7 +5,7 @@ set -o pipefail
 
 
 if [[ -z "$DEPLOY_BRANCH" ]]; then
-  DEPLOY_BRANCH="gh-pages"
+  DEPLOY_BRANCH="master"
   echo "No deploy branch specified. Using default $DEPLOY_BRANCH."
 else
   echo "Using provided deploy branch $DEPLOY_BRANCH."
