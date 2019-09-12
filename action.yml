@@ -1,0 +1,20 @@
+name: "Gatsby Publish"
+description: "Build and deploy your Gatsby site to GitHub Pages."
+branding:
+  icon: "book-open"
+  color: "purple"
+inputs:
+  access-token:
+    description: "A personal access token needed to push your site after it has been built."
+    required: true
+  deploy-branch:
+    description: "The branch expected by GitHub to have the static files needed for your site."
+    required: false
+    default: "master"
+  gatsby-args:
+    description: "Additional arguments that get passed to `gatsby build`."
+    required: false
+    default: ""
+runs:
+  using: "node12"
+  main: "index.js"

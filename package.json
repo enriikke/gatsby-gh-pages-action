@@ -1,0 +1,30 @@
+{
+  "name": "gatsby-gh-pages-action",
+  "version": "2.0.0",
+  "description": "GitHub Action to build and deploy your Gatsby site to GitHub Pages ❤️🎩",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enriikke/gatsby-gh-pages-action.git"
+  },
+  "keywords": [
+    "Gatsby",
+    "GitHub Pages",
+    "GitHub Actions"
+  ],
+  "author": "Enrique Gonzalez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enriikke/gatsby-gh-pages-action/issues"
+  },
+  "homepage": "https://github.com/enriikke/gatsby-gh-pages-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.1.0",
+    "@actions/exec": "^1.0.1",
+    "@actions/github": "^1.1.0",
+    "@actions/io": "^1.0.1"
+  }
+}
