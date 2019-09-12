@@ -1,7 +1,8 @@
 const core = require("@actions/core")
-const github = require("@actions/github")
-const ioUtil = require("@actions/io/lib/io-util")
 const exec = require("@actions/exec")
+const github = require("@actions/github")
+const io = require("@actions/io")
+const ioUtil = require("@actions/io/lib/io-util")
 
 async function run() {
   try {
@@ -33,7 +34,12 @@ async function run() {
     await exec.exec(`${pkgManager} run gatsby build`, [gatsbyArgs])
     console.log("Finished buidling your site.")
 
-    // TODO: copy CNAME to ./public
+    const cnameExists = await ioUtil.exists("./CNAME")
+    if (cnameExists) {
+      console.log("Copying CNAME over.")
+      await io.cp("./CNAME", "./public/CNAME", { force: true })
+      console.log("Finished copying CNAME.")
+    }
 
     const repo = `${github.context.repo.owner}/${github.context.repo.repo}`
     const repoURL = `https://${accessToken}@github.com/${repo}.git`
