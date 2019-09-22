@@ -32,7 +32,7 @@ async function run() {
     console.log("Ready to build your Gatsby site!")
     console.log(`Building with: ${pkgManager} run build ${gatsbyArgs}`)
     await exec.exec(`${pkgManager} run build`, [gatsbyArgs])
-    console.log("Finished buidling your site.")
+    console.log("Finished building your site.")
 
     const cnameExists = await ioUtil.exists("./CNAME")
     if (cnameExists) {
