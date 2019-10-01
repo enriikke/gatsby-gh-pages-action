@@ -30,9 +30,9 @@ async function run() {
 
     const gatsbyArgs = core.getInput("gatsby-args")
     console.log("Ready to build your Gatsby site!")
-    console.log(`Building with: ${pkgManager} run gatsby build ${gatsbyArgs}`)
-    await exec.exec(`${pkgManager} run gatsby build`, [gatsbyArgs])
-    console.log("Finished buidling your site.")
+    console.log(`Building with: ${pkgManager} run build ${gatsbyArgs}`)
+    await exec.exec(`${pkgManager} run build`, [gatsbyArgs])
+    console.log("Finished building your site.")
 
     const cnameExists = await ioUtil.exists("./CNAME")
     if (cnameExists) {
