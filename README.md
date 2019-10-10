@@ -25,6 +25,12 @@ jobs:
           access-token: ${{ secrets.ACCESS_TOKEN }}
 ```
 
+> **NOTE:** In order to support `npm` and `yarn`, this Action relies on having a
+> `build` script defined in your `package.json` file. Gatsby automatically defines
+> this script whenever you start a new project via `gatsby new`, which in turn calls
+> `gatsby build`.
+
+
 ### Knobs & Handles
 
 This Action is fairly simple but it does provide you with a couple of
@@ -113,6 +119,9 @@ This Action assumes that your Gatsby code sits at the root of your repository
 and `gatsby build` outputs to the `public` directory. As of this writing, Gatsby
 doesn't provide a way to customize the build directory so this should be a safe
 assumption.
+
+Additionally, a `build` script on `package.json` is expected for this Action to
+to work (as mentioned at the begining). Ultimately, this is what calls `gatsby build`.
 
 ## That's It
 
