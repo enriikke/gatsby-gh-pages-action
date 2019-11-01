@@ -121,7 +121,7 @@ doesn't provide a way to customize the build directory so this should be a safe
 assumption.
 
 Additionally, a `build` script on `package.json` is expected for this Action to
-to work (as mentioned at the begining). Ultimately, this is what calls `gatsby build`.
+to work (as mentioned at the beginning). Ultimately, this is what calls `gatsby build`.
 
 ## That's It
 
