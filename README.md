@@ -30,7 +30,6 @@ jobs:
 > this script whenever you start a new project via `gatsby new`, which in turn calls
 > `gatsby build`.
 
-
 ### Knobs & Handles
 
 This Action is fairly simple but it does provide you with a couple of
@@ -129,6 +128,6 @@ Have fun building! ✨
 
 [gatsby-build-docs]: https://www.gatsbyjs.org/docs/gatsby-cli/#build
 [github-access-token]: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line
-[github-action-input]: https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstepswith
+[github-action-input]: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#using-encrypted-secrets-in-a-workflow
 [github-pages-domain-docs]: https://help.github.com/en/articles/using-a-custom-domain-with-github-pages
-[github-repo-secret]: https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables
+[github-repo-secret]: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#creating-encrypted-secrets
