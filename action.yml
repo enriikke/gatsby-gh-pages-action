@@ -11,6 +11,10 @@ inputs:
     description: "The branch expected by GitHub to have the static files needed for your site."
     required: false
     default: "master"
+  deploy-repo:
+    description: "The repo expected by GitHub to have the static files needed for your site."
+    required: false
+    default: ""
   gatsby-args:
     description: "Additional arguments that get passed to `gatsby build`."
     required: false
