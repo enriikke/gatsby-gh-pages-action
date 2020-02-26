@@ -46,6 +46,11 @@ configuration options:
   [input][github-action-input].
   Defaults to `master`.
 
+- **deploy-repo**: The repository expected by GitHub to have the static files
+  needed for your site.
+  Provided as an [input][github-action-input].
+  Defaults to the same repository you place this action.
+
 - **gatsby-args**: Additional arguments that get passed to `gatsby build`. See the
   [Gatsby documentation][gatsby-build-docs] for a list of allowed options.
   Provided as an [input][github-action-input].
