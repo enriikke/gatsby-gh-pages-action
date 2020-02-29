@@ -14,7 +14,7 @@ async function run() {
       return
     }
 
-    const deployBranch = core.getInput("deploy-branch")
+    let deployBranch = core.getInput("deploy-branch")
     if (!deployBranch) deployBranch = "master"
 
     if (github.context.ref === `refs/heads/${deployBranch}`) {
@@ -41,7 +41,8 @@ async function run() {
       console.log("Finished copying CNAME.")
     }
 
-    const repo = `${github.context.repo.owner}/${github.context.repo.repo}`
+    const deployRepo = core.getInput("deploy-repo")
+    const repo = `${github.context.repo.owner}/${deployRepo || github.context.repo.repo}`
     const repoURL = `https://${accessToken}@github.com/${repo}.git`
     console.log("Ready to deploy your new shiny site!")
     console.log(`Deploying to repo: ${repo} and branch: ${deployBranch}`)
