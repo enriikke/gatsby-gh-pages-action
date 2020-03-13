@@ -19,6 +19,10 @@ inputs:
     description: "Additional arguments that get passed to `gatsby build`."
     required: false
     default: ""
+  skip-publish:
+    description: "Skips publishing - performs build/test"
+    required: false
+    default: false
 runs:
   using: "node12"
   main: "index.js"

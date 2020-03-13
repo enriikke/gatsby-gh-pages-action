@@ -40,7 +40,16 @@ async function run() {
       await io.cp("./CNAME", "./public/CNAME", { force: true })
       console.log("Finished copying CNAME.")
     }
-
+    
+    // Skips publishing if required - used to test configuration with pull-requests/etc
+    let skipPublish = core.getInput("skip-publish")
+    if (undefined == skipPublish) skipPublish = false;
+    
+    if (skipPublish) {
+      console.log("Builing completed successfully - skipping publish"); 
+      return;
+    }
+        
     const deployRepo = core.getInput("deploy-repo")
     const repo = `${github.context.repo.owner}/${deployRepo || github.context.repo.repo}`
     const repoURL = `https://${accessToken}@github.com/${repo}.git`
