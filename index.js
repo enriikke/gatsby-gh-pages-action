@@ -6,16 +6,17 @@ const ioUtil = require("@actions/io/lib/io-util")
 
 async function run() {
   try {
-    const accessToken = core.getInput("access-token")
-    if (!accessToken) {
-      core.setFailed(
-        "No personal access token found. Please provide one by setting the `access-token` input for this action."
-      )
-      return
+    // Skips publishing if required - used to test configuration with pull-requests/etc
+    const skipPublish = core.getInput("skip-publish") || false;
+    const accessToken = core.getInput("access-token");
+
+    if (!accessToken && !skipPublish) {
+      console.log('NOTICE: access-token is not set, will skip publish.');
+      skipPublish = true;
     }
 
     let deployBranch = core.getInput("deploy-branch")
-    if (!deployBranch) deployBranch = "master"
+    if (!deployBranch) deployBranch = "gh-pages"
 
     if (github.context.ref === `refs/heads/${deployBranch}`) {
       console.log(`Triggered by branch used to deploy: ${github.context.ref}.`)
@@ -40,11 +41,7 @@ async function run() {
       await io.cp("./CNAME", "./public/CNAME", { force: true })
       console.log("Finished copying CNAME.")
     }
-    
-    // Skips publishing if required - used to test configuration with pull-requests/etc
-    let skipPublish = core.getInput("skip-publish")
-    if (undefined == skipPublish) skipPublish = false;
-    
+       
     if (skipPublish) {
       console.log("Builing completed successfully - skipping publish"); 
       return;
