@@ -10,10 +10,12 @@ async function run() {
     const skipPublish = core.getInput("skip-publish") || false;
     const accessToken = core.getInput("access-token");
 
+    console.log(skipPublish);
     if (!accessToken && !skipPublish) {
       console.log('NOTICE: access-token is not set, will skip publish.');
       skipPublish = true;
     }
+    console.log(skipPublish);
 
     let deployBranch = core.getInput("deploy-branch")
     if (!deployBranch) deployBranch = "gh-pages"
