@@ -7,15 +7,17 @@ const ioUtil = require("@actions/io/lib/io-util")
 async function run() {
   try {
     // Skips publishing if required - used to test configuration with pull-requests/etc
-    const skipPublish = core.getInput("skip-publish") || false;
+    let skipPublish = core.getInput("skip-publish") || false;
+    if (skipPublish === 'false') {
+      skipPublish = false;
+    }
+    console.log('Skip publish: ', skipPublish, !!skipPublish);
     const accessToken = core.getInput("access-token");
 
-    console.log(skipPublish);
     if (!accessToken && !skipPublish) {
       console.log('NOTICE: access-token is not set, will skip publish.');
       skipPublish = true;
     }
-    console.log(skipPublish);
 
     let deployBranch = core.getInput("deploy-branch")
     if (!deployBranch) deployBranch = "gh-pages"
