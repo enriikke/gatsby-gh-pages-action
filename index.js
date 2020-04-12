@@ -8,6 +8,7 @@ async function run() {
   try {
     // Skips publishing if required - used to test configuration with pull-requests/etc
     let skipPublish = core.getInput("skip-publish") || false;
+    console.log('Skip publish: ', skipPublish, !!skipPublish);
     if (skipPublish === 'false') {
       skipPublish = false;
     }
