@@ -55,6 +55,11 @@ configuration options:
   [Gatsby documentation][gatsby-build-docs] for a list of allowed options.
   Provided as an [input][github-action-input].
   Defaults to nothing.
+  
+- **skip-publish**: Allows skipping of the publish action - effectively performing
+  a test of the build process using the live configuration.
+  Provided as an [input][github-action-input]
+  Defaults to **false**
 
 ### Org or User Pages
 
@@ -97,6 +102,29 @@ jobs:
           access-token: ${{ secrets.ACCESS_TOKEN }}
           deploy-branch: gh-pages
           gatsby-args: --prefix-paths
+```
+
+Provides build validation on `pull request` if required:
+
+```yml
+name: Gatsby Publish
+
+on:
+  pull-request:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: enriikke/gatsby-gh-pages-action@v2
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: --prefix-paths
+          skip-publish: true
 ```
 
 ### CNAME
