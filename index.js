@@ -43,9 +43,9 @@ async function run() {
     
     // Skips publishing if required - used to test configuration with pull-requests/etc
     let skipPublish = core.getInput("skip-publish")
-    if (undefined == skipPublish) skipPublish = false;
+    if (undefined == skipPublish) skipPublish = 'false';
     
-    if (skipPublish) {
+    if ('true' === skipPublish) {
       console.log("Builing completed successfully - skipping publish"); 
       return;
     }
