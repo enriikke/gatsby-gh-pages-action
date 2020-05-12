@@ -49,15 +49,15 @@ configuration options:
 - **deploy-repo**: The repository expected by GitHub to have the static files
   needed for your site.
   Provided as an [input][github-action-input].
-  Defaults to the same repository you place this action.
+  Defaults to the same repository that runs this action.
 
 - **gatsby-args**: Additional arguments that get passed to `gatsby build`. See the
   [Gatsby documentation][gatsby-build-docs] for a list of allowed options.
   Provided as an [input][github-action-input].
   Defaults to nothing.
-  
-- **skip-publish**: Allows skipping of the publish action - effectively performing
-  a test of the build process using the live configuration.
+
+- **skip-publish**: Builds your Gatsby site but skips publishing by setting it to `true`,
+  effectively performing a test of the build process using the live configuration.
   Provided as an [input][github-action-input]
   Defaults to **false**
 

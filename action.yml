@@ -14,15 +14,15 @@ inputs:
   deploy-repo:
     description: "The repo expected by GitHub to have the static files needed for your site."
     required: false
-    default: ""
+    default: "The repository this action is run in"
   gatsby-args:
     description: "Additional arguments that get passed to `gatsby build`."
     required: false
     default: ""
   skip-publish:
-    description: "Skips publishing - performs build/test"
+    description: "Builds your Gatsby site but skips publishing by setting it to `true`. Helpful for testing/debugging Workflows."
     required: false
     default: false
 runs:
   using: "node12"
-  main: "index.js"
+  main: "./dist/index.js"
