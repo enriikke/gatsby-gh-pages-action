@@ -14,7 +14,7 @@ inputs:
   deploy-repo:
     description: "The repo expected by GitHub to have the static files needed for your site."
     required: false
-    default: "The repository this action is run in"
+    default: ""
   gatsby-args:
     description: "Additional arguments that get passed to `gatsby build`."
     required: false
