@@ -37,7 +37,9 @@ async function run(): Promise<void> {
 
     console.log('Ready to build your Gatsby site!')
     console.log(`Building with: ${pkgManager} run build ${gatsbyArgs.join(' ')}`)
-    await exec.exec(`${pkgManager} run build`, gatsbyArgs)
+    await (gatsbyArgs.length == 0
+      ? exec.exec(`${pkgManager} run build`)
+      : exec.exec(`${pkgManager} run build`, gatsbyArgs))
     console.log('Finished building your site.')
 
     const cnameExists = await ioUtil.exists('./CNAME')
