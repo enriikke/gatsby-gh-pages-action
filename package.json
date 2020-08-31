@@ -2,7 +2,7 @@
   "name": "gatsby-gh-pages-action",
   "version": "2.1.1",
   "description": "GitHub Action to build and deploy your Gatsby site to GitHub Pages ❤️🎩",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc --noEmit && ncc build index.ts -o dist -m",
     "test": "tsc --noEmit && jest --silent",

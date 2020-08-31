@@ -1,0 +1,22 @@
+name: Publish
+
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Tag
+        uses: JasonEtco/build-and-tag-action@v1
+        with:
+          setup: 'yarn build'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
