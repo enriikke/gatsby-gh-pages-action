@@ -69,11 +69,21 @@ describe('Gatsby Publish action', () => {
     )
   })
 
-  it('skips if deploy branch is the same as the current git head', async () => {
+  it('skips if deploy branch is the same as the current git head and the repo is the same', async () => {
     inputs['deploy-branch'] = 'some-ref'
     github.context.ref = 'refs/heads/some-ref'
 
     await expect(run()).resolves.not.toThrowError()
+  })
+
+  it('builds if deploy branch is the same as the current git hub but the repo is not the same', async () => {
+    inputs['deploy-branch'] = 'some-ref'
+    inputs['deploy-repo'] = 'deploy-repo'
+    github.context.ref = 'refs/heads/some-ref'
+
+    await run()
+
+    expect(execSpy).toBeCalledWith('yarn run build', [])
   })
 
   it('calls gatsby build without args', async () => {
