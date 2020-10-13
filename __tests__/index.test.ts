@@ -81,7 +81,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', [])
+    expect(execSpy).toBeCalledWith('yarn run build', [], {"cwd": "."})
   })
 
   it('calls gatsby build with args', async () => {
@@ -89,6 +89,33 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', ['--', '--prefix-paths', '--no-uglify'])
+    expect(execSpy).toBeCalledWith('yarn run build', ['--', '--prefix-paths', '--no-uglify'], {"cwd": "."})
+  })
+
+  it('calls gatsby build with working-dir', async () => {
+    inputs['gatsby-args'] = ''
+    inputs['working-dir'] = '../gatsby-gh-pages-action'
+
+    await run()
+
+    expect(execSpy).toBeCalledWith('yarn run build', [], {"cwd": "../gatsby-gh-pages-action"})
+  })
+
+  it('calls gatsby build with working-dir and args', async () => {
+    inputs['gatsby-args'] = '--prefix-paths --no-uglify'
+    inputs['working-dir'] = '../gatsby-gh-pages-action'
+
+    await run()
+
+    expect(execSpy).toBeCalledWith('yarn run build', ['--', '--prefix-paths', '--no-uglify'], {"cwd": "../gatsby-gh-pages-action"})
+  })
+
+  it('calls gatsby build with wrong working-dir', async () => {
+    inputs['gatsby-args'] = ''
+    inputs['working-dir'] = './__tests__'
+
+    await run()
+
+    expect(execSpy).toBeCalledWith('npm run build', [], {"cwd": "./__tests__"})
   })
 })

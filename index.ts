@@ -25,9 +25,10 @@ async function run(): Promise<void> {
       return
     }
 
-    const pkgManager = (await ioUtil.exists('./yarn.lock')) ? 'yarn' : 'npm'
+    const workingDir = core.getInput('working-dir') || "."
+    const pkgManager = (await ioUtil.exists(`${workingDir}/yarn.lock`)) ? 'yarn' : 'npm'
     console.log(`Installing your site's dependencies using ${pkgManager}.`)
-    await exec.exec(`${pkgManager} install`)
+    await exec.exec(`${pkgManager} install`, [], {cwd: workingDir})
     console.log('Finished installing dependencies.')
 
     let gatsbyArgs = core.getInput('gatsby-args').split(/\s+/).filter(Boolean)
@@ -37,13 +38,13 @@ async function run(): Promise<void> {
 
     console.log('Ready to build your Gatsby site!')
     console.log(`Building with: ${pkgManager} run build ${gatsbyArgs.join(' ')}`)
-    await exec.exec(`${pkgManager} run build`, gatsbyArgs)
+    await exec.exec(`${pkgManager} run build`, gatsbyArgs, {cwd: workingDir})
     console.log('Finished building your site.')
 
-    const cnameExists = await ioUtil.exists('./CNAME')
+    const cnameExists = await ioUtil.exists(`${workingDir}/CNAME`)
     if (cnameExists) {
       console.log('Copying CNAME over.')
-      await io.cp('./CNAME', './public/CNAME', {force: true})
+      await io.cp(`${workingDir}/CNAME`, `${workingDir}/public/CNAME`, {force: true})
       console.log('Finished copying CNAME.')
     }
 
@@ -60,19 +61,19 @@ async function run(): Promise<void> {
     console.log(`Deploying to repo: ${repo} and branch: ${deployBranch}`)
     console.log('You can configure the deploy branch by setting the `deploy-branch` input for this action.')
 
-    await exec.exec(`git init`, [], {cwd: './public'})
+    await exec.exec(`git init`, [], {cwd: `${workingDir}/public`})
     await exec.exec(`git config user.name`, [github.context.actor], {
-      cwd: './public',
+      cwd: `${workingDir}/public`,
     })
-    await exec.exec(`git config user.email`, [`${github.context.actor}@users.noreply.github.com`], {cwd: './public'})
+    await exec.exec(`git config user.email`, [`${github.context.actor}@users.noreply.github.com`], {cwd: `${workingDir}/public`})
 
-    await exec.exec(`git add`, ['.'], {cwd: './public'})
+    await exec.exec(`git add`, ['.'], {cwd: `${workingDir}/public`})
     await exec.exec(`git commit`, ['-m', `deployed via Gatsby Publish Action 🎩 for ${github.context.sha}`], {
-      cwd: './public',
+      cwd: `${workingDir}/public`,
     })
 
     await exec.exec(`git push`, ['-f', repoURL, `master:${deployBranch}`], {
-      cwd: './public',
+      cwd: `${workingDir}/public`,
     })
     console.log('Finished deploying your site.')
 
