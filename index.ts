@@ -52,7 +52,7 @@ async function run(): Promise<void> {
 
     const skipPublish = (core.getInput('skip-publish') || 'false').toUpperCase()
     if (skipPublish === 'TRUE') {
-      console.log('Builing completed successfully - skipping publish')
+      console.log('Building completed successfully - skipping publish')
       return
     }
 
