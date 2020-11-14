@@ -84,7 +84,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', [])
+    expect(execSpy).toBeCalledWith('yarn run build', [], {cwd: '.'})
   })
 
   it('calls gatsby build without args', async () => {
