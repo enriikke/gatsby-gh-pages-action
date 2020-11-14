@@ -28,7 +28,7 @@ async function run(): Promise<void> {
       return
     }
 
-    const workingDir = core.getInput('working-dir') || "."
+    const workingDir = core.getInput('working-dir') || '.'
     const pkgManager = (await ioUtil.exists(`${workingDir}/yarn.lock`)) ? 'yarn' : 'npm'
     console.log(`Installing your site's dependencies using ${pkgManager}.`)
     await exec.exec(`${pkgManager} install`, [], {cwd: workingDir})
@@ -67,7 +67,9 @@ async function run(): Promise<void> {
     await exec.exec(`git config user.name`, [github.context.actor], {
       cwd: `${workingDir}/public`,
     })
-    await exec.exec(`git config user.email`, [`${github.context.actor}@users.noreply.github.com`], {cwd: `${workingDir}/public`})
+    await exec.exec(`git config user.email`, [`${github.context.actor}@users.noreply.github.com`], {
+      cwd: `${workingDir}/public`,
+    })
 
     await exec.exec(`git add`, ['.'], {cwd: `${workingDir}/public`})
     await exec.exec(`git commit`, ['-m', `deployed via Gatsby Publish Action 🎩 for ${github.context.sha}`], {

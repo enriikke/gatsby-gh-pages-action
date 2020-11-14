@@ -23,6 +23,10 @@ inputs:
     description: "Builds your Gatsby site but skips publishing by setting it to `true`. Helpful for testing/debugging Workflows."
     required: false
     default: false
+  working-dir:
+    description: "The directory where your Gatsby source files are at. `gatsby build` will run from this directory."
+    required: false
+    default: "."
 runs:
   using: "node12"
   main: "./dist/index.js"
