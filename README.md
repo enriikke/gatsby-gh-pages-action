@@ -61,6 +61,11 @@ configuration options:
   Provided as an [input][github-action-input]
   Defaults to **false**
 
+- **working-dir**: The directory where your Gatsby source files are at. `gatsby build`
+  will run from this directory.
+  Provided as an [input][github-action-input]
+  Defaults to the project's root.
+
 ### Org or User Pages
 
 Create a repository with the format `<YOUR/ORG USERNAME>.github.io`, push your
@@ -160,7 +165,7 @@ to work (as mentioned at the beginning). Ultimately, this is what calls `gatsby 
 Have fun building! ✨
 
 [gatsby-build-docs]: https://www.gatsbyjs.org/docs/gatsby-cli/#build
-[github-access-token]: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line
-[github-action-input]: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#using-encrypted-secrets-in-a-workflow
-[github-pages-domain-docs]: https://help.github.com/en/articles/using-a-custom-domain-with-github-pages
-[github-repo-secret]: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets#creating-encrypted-secrets
+[github-access-token]: https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token
+[github-action-input]: https://docs.github.com/en/free-pro-team@latest/actions/creating-actions/metadata-syntax-for-github-actions#inputs
+[github-pages-domain-docs]: https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site
+[github-repo-secret]: https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets
