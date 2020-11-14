@@ -110,7 +110,7 @@ Provides build validation on `pull request` if required:
 name: Gatsby Publish
 
 on:
-  pull-request:
+  pull_request:
     branches:
       - dev
 
