@@ -76,7 +76,7 @@ describe('Gatsby Publish action', () => {
     await expect(run()).resolves.not.toThrowError()
   })
 
-  it('builds if deploy branch is the same as the current git hub but the repo is not the same', async () => {
+  it('builds if deploy branch is the same as the current git head but the repo is not the same', async () => {
     inputs['gatsby-args'] = ''
     inputs['deploy-branch'] = 'some-ref'
     inputs['deploy-repo'] = 'deploy-repo'
