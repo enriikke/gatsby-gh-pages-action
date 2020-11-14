@@ -19,7 +19,10 @@ async function run(): Promise<void> {
     let deployBranch = core.getInput('deploy-branch')
     if (!deployBranch) deployBranch = DEFAULT_DEPLOY_BRANCH
 
-    if (github.context.ref === `refs/heads/${deployBranch}`) {
+    const deployRepo = core.getInput('deploy-repo')
+    const isSameRepo = !deployRepo || deployRepo === github.context.repo.repo
+
+    if (isSameRepo && github.context.ref === `refs/heads/${deployBranch}`) {
       console.log(`Triggered by branch used to deploy: ${github.context.ref}.`)
       console.log('Nothing to deploy.')
       return
@@ -49,11 +52,10 @@ async function run(): Promise<void> {
 
     const skipPublish = (core.getInput('skip-publish') || 'false').toUpperCase()
     if (skipPublish === 'TRUE') {
-      console.log('Builing completed successfully - skipping publish')
+      console.log('Building completed successfully - skipping publish')
       return
     }
 
-    const deployRepo = core.getInput('deploy-repo')
     const repo = `${github.context.repo.owner}/${deployRepo || github.context.repo.repo}`
     const repoURL = `https://${accessToken}@github.com/${repo}.git`
     console.log('Ready to deploy your new shiny site!')
