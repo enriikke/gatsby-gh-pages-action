@@ -27,6 +27,18 @@ inputs:
     description: "The directory where your Gatsby source files are at. `gatsby build` will run from this directory."
     required: false
     default: "."
+  commit-message:
+    description: "The commit message used for pushing changes to the deploy branch. Use the identifier {sha} to replace with the commit SHA."
+    required: false
+    default: ""
+  git-config-name:
+    description: "The name under which the deploy commit is pushed to the deploy branch."
+    required: false
+    default: ""
+  git-config-email:
+    description: "The email adress under which the deploy commit is pushed to the deploy branch."
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "./dist/index.js"
