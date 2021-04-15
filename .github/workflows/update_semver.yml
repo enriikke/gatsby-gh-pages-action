@@ -2,7 +2,7 @@ name: Update Semver
 on:
   push:
     tags:
-      - '*.*.*'
+      - 'v*.*.*'
   release:
      types:
        - published
