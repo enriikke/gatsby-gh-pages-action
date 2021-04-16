@@ -19,5 +19,3 @@ jobs:
         uses: JasonEtco/build-and-tag-action@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - name: Semver
-        uses: haya14busa/action-update-semver@v1
