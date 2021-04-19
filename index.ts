@@ -64,32 +64,24 @@ async function run(): Promise<void> {
     console.log('You can configure the deploy branch by setting the `deploy-branch` input for this action.')
 
     await exec.exec(`git init`, [], {cwd: `${workingDir}/public`})
-    await exec.exec(`git config user.name`, [core.getInput('git-config-name') || github.context.actor], {
+
+    const gitUserName = core.getInput('git-config-name') || github.context.actor
+    const gitEmail = core.getInput('git-config-email') || `${github.context.actor}@users.noreply.github.com`
+
+    await exec.exec(`git config user.name`, [gitUserName], {
       cwd: `${workingDir}/public`,
     })
-    await exec.exec(
-      `git config user.email`,
-      [core.getInput('git-config-email') || `${github.context.actor}@users.noreply.github.com`],
-      {
-        cwd: `${workingDir}/public`,
-      },
-    )
+    await exec.exec(`git config user.email`, [gitEmail], {
+      cwd: `${workingDir}/public`,
+    })
 
     await exec.exec(`git add`, ['.'], {cwd: `${workingDir}/public`})
 
-    const commitMessageInput = core.getInput('commit-message')
-    await exec.exec(
-      `git commit`,
-      [
-        '-m',
-        commitMessageInput
-          ? commitMessageInput.replace('{sha}', github.context.sha)
-          : `deployed via Gatsby Publish Action 🎩 for ${github.context.sha}`,
-      ],
-      {
-        cwd: `${workingDir}/public`,
-      },
-    )
+    const commitMessageInput =
+      core.getInput('commit-message') ?? `deployed via Gatsby Publish Action 🎩 for ${github.context.sha}`
+    await exec.exec(`git commit`, ['-m', commitMessageInput], {
+      cwd: `${workingDir}/public`,
+    })
 
     await exec.exec(`git push`, ['-f', repoURL, `master:${deployBranch}`], {
       cwd: `${workingDir}/public`,

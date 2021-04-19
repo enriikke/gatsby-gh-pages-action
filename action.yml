@@ -28,7 +28,7 @@ inputs:
     required: false
     default: "."
   commit-message:
-    description: "The commit message used for pushing changes to the deploy branch. Use the identifier {sha} to replace with the commit SHA."
+    description: "The commit message used for pushing changes to the deploy branch."
     required: false
     default: ""
   git-config-name:
