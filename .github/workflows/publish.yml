@@ -13,10 +13,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.release.tag_name }}
-
+      - name: Dependencies
+        run: yarn install && yarn build
       - name: Tag
         uses: JasonEtco/build-and-tag-action@v1
-        with:
-          setup: 'yarn build'
         env:
           GITHUB_TOKEN: ${{ github.token }}
