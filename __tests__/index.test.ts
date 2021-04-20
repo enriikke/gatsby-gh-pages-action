@@ -31,6 +31,7 @@ beforeAll(() => {
     }
   })
 
+  github.context.actor = 'enrikke'
   github.context.ref = 'refs/heads/some-ref'
   github.context.sha = '1234567890123456789012345678901234567890'
 
@@ -130,5 +131,27 @@ describe('Gatsby Publish action', () => {
     await run()
 
     expect(execSpy).toBeCalledWith('npm run build', [], {cwd: './__tests__'})
+  })
+
+  it('calls gatsby build with git name and email', async () => {
+    inputs['gatsby-args'] = ''
+    inputs['git-config-name'] = 'git-name'
+    inputs['git-config-email'] = 'git-email'
+    inputs['skip-publish'] = 'FALSE'
+
+    await run()
+
+    expect(execSpy).nthCalledWith(4, 'git config user.name', ['git-name'], {cwd: './public'})
+    expect(execSpy).nthCalledWith(5, 'git config user.email', ['git-email'], {cwd: './public'})
+  })
+
+  it('calls gatsby build without git name and email', async () => {
+    inputs['gatsby-args'] = ''
+    inputs['skip-publish'] = 'FALSE'
+
+    await run()
+
+    expect(execSpy).nthCalledWith(4, 'git config user.name', ['enrikke'], {cwd: './public'})
+    expect(execSpy).nthCalledWith(5, 'git config user.email', ['enrikke@users.noreply.github.com'], {cwd: './public'})
   })
 })
