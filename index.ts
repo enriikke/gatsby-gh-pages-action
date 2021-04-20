@@ -78,7 +78,7 @@ async function run(): Promise<void> {
     await exec.exec(`git add`, ['.'], {cwd: `${workingDir}/public`})
 
     const commitMessageInput =
-      core.getInput('commit-message') ?? `deployed via Gatsby Publish Action 🎩 for ${github.context.sha}`
+      core.getInput('commit-message') || `deployed via Gatsby Publish Action 🎩 for ${github.context.sha}`
     await exec.exec(`git commit`, ['-m', commitMessageInput], {
       cwd: `${workingDir}/public`,
     })
