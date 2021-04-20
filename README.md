@@ -58,14 +58,25 @@ configuration options:
 
 - **skip-publish**: Builds your Gatsby site but skips publishing by setting it to `true`,
   effectively performing a test of the build process using the live configuration.
-  Provided as an [input][github-action-input]
+  Provided as an [input][github-action-input].
   Defaults to **false**
 
 - **working-dir**: The directory where your Gatsby source files are at. `gatsby build`
   will run from this directory.
-  Provided as an [input][github-action-input]
+  Provided as an [input][github-action-input].
   Defaults to the project's root.
+  
+- **git-config-name**: Provide a custom name that is used to author the git commit, which
+  is pushed to the deploy branch.
+  Provided as an [input][github-action-input].
+  Defaults to the GitHub username of the action actor.
 
+- **git-config-email**: Provide a custom email that is used to author the git commit, which
+  is pushed to the deploy branch.
+  Provided as an [input][github-action-input].
+  Defaults to `{actor}@users.noreply.github.com`, where `{actor}` is the GitHub username 
+  of the action actor.
+  
 ### Org or User Pages
 
 Create a repository with the format `<YOUR/ORG USERNAME>.github.io`, push your
