@@ -85,7 +85,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', [], {cwd: '.'})
+    expect(execSpy).toBeCalledWith('npm run build', [], {cwd: '.'})
   })
 
   it('calls gatsby build without args', async () => {
@@ -93,7 +93,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', [], {cwd: '.'})
+    expect(execSpy).toBeCalledWith('npm run build', [], {cwd: '.'})
   })
 
   it('calls gatsby build with args', async () => {
@@ -101,7 +101,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', ['--', '--prefix-paths', '--no-uglify'], {cwd: '.'})
+    expect(execSpy).toBeCalledWith('npm run build', ['--', '--prefix-paths', '--no-uglify'], {cwd: '.'})
   })
 
   it('calls gatsby build with working-dir', async () => {
@@ -110,7 +110,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', [], {cwd: '../gatsby-gh-pages-action'})
+    expect(execSpy).toBeCalledWith('npm run build', [], {cwd: '../gatsby-gh-pages-action'})
   })
 
   it('calls gatsby build with working-dir and args', async () => {
@@ -119,7 +119,7 @@ describe('Gatsby Publish action', () => {
 
     await run()
 
-    expect(execSpy).toBeCalledWith('yarn run build', ['--', '--prefix-paths', '--no-uglify'], {
+    expect(execSpy).toBeCalledWith('npm run build', ['--', '--prefix-paths', '--no-uglify'], {
       cwd: '../gatsby-gh-pages-action',
     })
   })
