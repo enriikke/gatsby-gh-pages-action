@@ -22,7 +22,7 @@ async function run(): Promise<void> {
     const deployRepo = core.getInput('deploy-repo')
     const isSameRepo = !deployRepo || deployRepo === github.context.repo.repo
 
-    const buildPath = core.getInput('build-path') || DEFAULT_BUILD_PATH
+    const buildPath = core.getInput('build-path')
 
     if (isSameRepo && github.context.ref === `refs/heads/${deployBranch}`) {
       console.log(`Triggered by branch used to deploy: ${github.context.ref}.`)
