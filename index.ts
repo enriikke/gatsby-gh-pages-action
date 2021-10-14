@@ -25,6 +25,10 @@ async function run(): Promise<void> {
 
     const buildPath = core.getInput('build-path') || DEFAULT_BUILD_PATH
 
+    console.log("XXXXXXXXXXX")
+    console.log(core.getInput('build-path'))
+    console.log(buildPath)
+
     if (isSameRepo && github.context.ref === `refs/heads/${deployBranch}`) {
       console.log(`Triggered by branch used to deploy: ${github.context.ref}.`)
       console.log('Nothing to deploy.')
