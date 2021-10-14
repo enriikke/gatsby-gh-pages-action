@@ -66,6 +66,8 @@ async function run(): Promise<void> {
     console.log(`Deploying to repo: ${repo} and branch: ${deployBranch}`)
     console.log('You can configure the deploy branch by setting the `deploy-branch` input for this action.')
 
+    console.log(`${workingDir}/${buildPath}`)
+
     await exec.exec(`git init`, [], {cwd: `${workingDir}/${buildPath}`})
 
     const gitUserName = core.getInput('git-config-name') || github.context.actor
