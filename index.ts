@@ -5,7 +5,6 @@ import * as io from '@actions/io'
 import * as ioUtil from '@actions/io/lib/io-util'
 
 const DEFAULT_DEPLOY_BRANCH = 'master'
-const DEFAULT_BUILD_PATH = 'public'
 
 async function run(): Promise<void> {
   try {
@@ -24,10 +23,6 @@ async function run(): Promise<void> {
     const isSameRepo = !deployRepo || deployRepo === github.context.repo.repo
 
     const buildPath = core.getInput('build-path') || DEFAULT_BUILD_PATH
-
-    console.log("XXXXXXXXXXX")
-    console.log(core.getInput('build-path'))
-    console.log(buildPath)
 
     if (isSameRepo && github.context.ref === `refs/heads/${deployBranch}`) {
       console.log(`Triggered by branch used to deploy: ${github.context.ref}.`)
@@ -69,8 +64,6 @@ async function run(): Promise<void> {
     console.log('Ready to deploy your new shiny site!')
     console.log(`Deploying to repo: ${repo} and branch: ${deployBranch}`)
     console.log('You can configure the deploy branch by setting the `deploy-branch` input for this action.')
-
-    console.log(`${workingDir}/${buildPath}`)
 
     await exec.exec(`git init`, [], {cwd: `${workingDir}/${buildPath}`})
 

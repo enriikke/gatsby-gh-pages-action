@@ -10,7 +10,7 @@ inputs:
   build-path:
     description: "The directory where your built files are at."
     required: false
-    default: "publicxx"
+    default: "public"
   deploy-branch:
     description: "The branch expected by GitHub to have the static files needed for your site."
     required: false
