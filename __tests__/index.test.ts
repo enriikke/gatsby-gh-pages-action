@@ -138,6 +138,7 @@ describe('Gatsby Publish action', () => {
     inputs['git-config-name'] = 'git-name'
     inputs['git-config-email'] = 'git-email'
     inputs['skip-publish'] = 'FALSE'
+    inputs['build-path'] = 'public'
 
     await run()
 
@@ -148,6 +149,7 @@ describe('Gatsby Publish action', () => {
   it('calls gatsby build without git name and email', async () => {
     inputs['gatsby-args'] = ''
     inputs['skip-publish'] = 'FALSE'
+    inputs['build-path'] = 'public'
 
     await run()
 
