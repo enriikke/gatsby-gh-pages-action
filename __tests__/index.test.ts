@@ -59,15 +59,25 @@ beforeEach(() => {
 })
 
 describe('Gatsby Publish action', () => {
-  it('returns an error when no access token is given', async () => {
+  it('returns an error when no access token is given if skip-publish is not true', async () => {
     inputs['access-token'] = ''
+    inputs['skip-publish'] = ''
     const setFailedSpy = jest.spyOn(core, 'setFailed')
 
     await run()
 
     expect(setFailedSpy).toBeCalledWith(
-      'No personal access token found. Please provide one by setting the `access-token` input for this action.',
+      'No personal access token found. Please provide one by setting the `access-token` input for this action, or disable publishing by setting `skip-publish`.',
     )
+  })
+
+  it('does not return an error when no access token is given if skip-publish is true', async () => {
+    inputs['access-token'] = ''
+    inputs['skip-publish'] = 'true'
+
+    await run()
+
+    await expect(run()).resolves.not.toThrowError()
   })
 
   it('skips if deploy branch is the same as the current git head and the repo is the same', async () => {
