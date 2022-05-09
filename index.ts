@@ -35,7 +35,7 @@ async function run(): Promise<void> {
     }
 
     const workingDir = core.getInput('working-dir') || '.'
-    const pkgManager = await getPkgManager(workingDir)
+    const pkgManager = core.getInput('pkg-manager') || (await getPkgManager(workingDir))
     console.log(`Installing your site's dependencies using ${pkgManager}.`)
     await exec.exec(`${pkgManager} install`, [], {cwd: workingDir})
     console.log('Finished installing dependencies.')
