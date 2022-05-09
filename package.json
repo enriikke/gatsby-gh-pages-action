@@ -1,6 +1,6 @@
 {
   "name": "gatsby-gh-pages-action",
-  "version": "2.1.1",
+  "version": "2.2.1",
   "description": "GitHub Action to build and deploy your Gatsby site to GitHub Pages ❤️🎩",
   "main": "dist/index.js",
   "scripts": {

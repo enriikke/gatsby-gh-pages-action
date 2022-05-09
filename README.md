@@ -76,6 +76,9 @@ configuration options:
   Provided as an [input][github-action-input].
   Defaults to `{actor}@users.noreply.github.com`, where `{actor}` is the GitHub username 
   of the action actor.
+
+- **pkg-manager**: Provide a custom package manager other than npm.
+  Provided as an [input][github-action-input].
   
 ### Org or User Pages
 
