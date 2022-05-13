@@ -14,10 +14,12 @@ async function getPkgManager(workingDir: string) {
 
 async function run(): Promise<void> {
   try {
+    const skipPublish = (core.getInput('skip-publish') || 'false').toUpperCase()
+
     const accessToken = core.getInput('access-token')
-    if (!accessToken) {
+    if (!accessToken && skipPublish !== 'TRUE') {
       core.setFailed(
-        'No personal access token found. Please provide one by setting the `access-token` input for this action.',
+        'No personal access token found. Please provide one by setting the `access-token` input for this action, or disable publishing by setting `skip-publish`.',
       )
       return
     }
@@ -59,7 +61,6 @@ async function run(): Promise<void> {
       console.log('Finished copying CNAME.')
     }
 
-    const skipPublish = (core.getInput('skip-publish') || 'false').toUpperCase()
     if (skipPublish === 'TRUE') {
       console.log('Building completed successfully - skipping publish')
       return

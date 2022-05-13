@@ -6,7 +6,7 @@ branding:
 inputs:
   access-token:
     description: "A personal access token needed to push your site after it has been built."
-    required: true
+    required: false
   deploy-branch:
     description: "The branch expected by GitHub to have the static files needed for your site."
     required: false
