@@ -91,7 +91,7 @@ async function run(): Promise<void> {
 
     console.log('Enjoy! ✨')
   } catch (err) {
-    core.setFailed(err.message)
+    core.setFailed((err as Error).message)
   }
 }
 
