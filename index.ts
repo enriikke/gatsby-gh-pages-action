@@ -6,6 +6,12 @@ import * as ioUtil from '@actions/io/lib/io-util'
 
 const DEFAULT_DEPLOY_BRANCH = 'master'
 
+async function getPkgManager(workingDir: string) {
+  if (await ioUtil.exists(`${workingDir}/pnpm-lock.yaml`)) return 'pnpm'
+  if (await ioUtil.exists(`${workingDir}/yarn.lock`)) return 'yarn'
+  return 'npm'
+}
+
 async function run(): Promise<void> {
   try {
     const skipPublish = (core.getInput('skip-publish') || 'false').toUpperCase()
@@ -31,7 +37,7 @@ async function run(): Promise<void> {
     }
 
     const workingDir = core.getInput('working-dir') || '.'
-    const pkgManager = (await ioUtil.exists(`${workingDir}/yarn.lock`)) ? 'yarn' : 'npm'
+    const pkgManager = core.getInput('pkg-manager') || (await getPkgManager(workingDir))
     console.log(`Installing your site's dependencies using ${pkgManager}.`)
     await exec.exec(`${pkgManager} install`, [], {cwd: workingDir})
     console.log('Finished installing dependencies.')
@@ -49,7 +55,9 @@ async function run(): Promise<void> {
     const cnameExists = await ioUtil.exists(`${workingDir}/CNAME`)
     if (cnameExists) {
       console.log('Copying CNAME over.')
-      await io.cp(`${workingDir}/CNAME`, `${workingDir}/public/CNAME`, {force: true})
+      await io.cp(`${workingDir}/CNAME`, `${workingDir}/public/CNAME`, {
+        force: true,
+      })
       console.log('Finished copying CNAME.')
     }
 

@@ -39,6 +39,10 @@ inputs:
     description: "The email adress under which the deploy commit is pushed to the deploy branch."
     required: false
     default: ""
+  pkg-manager:
+    description: "The package manager used to manage the project"
+    required: false
+    default: ""
 runs:
   using: "node18"
   main: "./dist/index.js"
